@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Nova Notes V8.5 Pro</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+  
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#6366f1">
+  
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div>
+
+            <h1>🚀 Nova Notes</h1>
+
+            <p id="greeting">
+                Welcome back!
+            </p>
+
+        </div>
+
+        <div class="hero-actions">
+
+            <button
+                id="themeBtn"
+                onclick="toggleDarkMode()">
+
+                🌙 Theme
+
+            </button>
+
+        </div>
+
+    </header>
+
+    <!-- DASHBOARD -->
+
+    <section class="stats">
+
+        <div class="card">
+
+            <h3 id="totalTasks">0</h3>
+
+            <p>Total Tasks</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3 id="completedTasks">0</h3>
+
+            <p>Completed</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3 id="favoriteTasks">0</h3>
+
+            <p>Favorites</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3 id="pendingTasks">0</h3>
+
+            <p>Pending</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3 id="streak">0🔥</h3>
+
+            <p>Streak</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3 id="dueToday">0</h3>
+
+            <p>Due Today</p>
+
+        </div>
+
+    </section>
+
+    <!-- PROGRESS -->
+
+    <section class="progress-section">
+
+        <div class="progress-header">
+
+            <span>Progress</span>
+
+            <span id="progressText">
+
+                0% Complete
+
+            </span>
+
+        </div>
+
+        <div id="progressContainer">
+
+            <div id="progressBar"></div>
+
+        </div>
+
+    </section>
+
+    <!-- SEARCH -->
+
+    <section class="search-area">
+
+        <input
+
+            id="searchInput"
+
+            type="text"
+
+            placeholder="🔍 Search notes...">
+
+    </section>
+
+    <!-- FILTERS -->
+
+    <section class="filters">
+
+        <select id="filterCategory">
+
+            <option value="all">All Notes</option>
+
+            <option value="pending">Pending</option>
+
+            <option value="completed">Completed</option>
+
+            <option value="favorites">Favorites</option>
+
+            <option value="high">High Priority</option>
+
+            <option value="medium">Medium Priority</option>
+
+            <option value="low">Low Priority</option>
+
+        </select>
+
+        <select id="sortBy">
+
+            <option value="newest">Newest</option>
+
+            <option value="date">Due Date</option>
+
+            <option value="priority">Priority</option>
+
+            <option value="favorite">Favorites</option>
+
+            <option value="completed">Completed</option>
+
+        </select>
+
+    </section>
+
+    <!-- ADD NOTE -->
+
+    <section class="add-note">
+
+        <input
+
+            id="noteInput"
+
+            type="text"
+
+            placeholder="What needs to be done?">
+
+        <select id="priority">
+
+            <option>🟢 Low</option>
+
+            <option selected>🟡 Medium</option>
+
+            <option>🔴 High</option>
+
+        </select>
+
+        <select id="category">
+
+            <option>Personal</option>
+
+            <option>Work</option>
+
+            <option>School</option>
+
+            <option>Shopping</option>
+
+            <option>Finance</option>
+
+            <option>Health</option>
+
+        </select>
+
+        <input
+
+            id="dueDate"
+
+            type="date">
+
+        <button
+            id="addBtn">
+
+            ➕ Add Note
+
+        </button>
+
+    </section>
+        <!-- QUICK ACTIONS -->
+
+    <section class="quick-actions">
+
+        <button onclick="toggleDarkMode()">
+            🌙 Theme
+        </button>
+
+        <button onclick="exportNotes()">
+            📤 Export
+        </button>
+
+        <button onclick="document.getElementById('importFile').click()">
+            📥 Import
+        </button>
+
+        <button onclick="deleteAllNotes()">
+            🗑 Delete All
+        </button>
+
+    </section>
+
+    <!-- HIDDEN IMPORT -->
+
+    <input
+        type="file"
+        id="importFile"
+        accept=".json"
+        hidden
+        onchange="importNotes(event)">
+
+    <!-- NOTIFICATIONS -->
+
+    <section id="notifications">
+
+        <div class="notice">
+
+            🎉 Welcome to Nova Notes!
+
+        </div>
+
+    </section>
+
+    <!-- NOTES COUNTER -->
+
+    <section class="notes-header">
+
+        <h2>Your Notes</h2>
+
+        <span id="counter">
+
+            0 Notes
+
+        </span>
+
+    </section>
+
+    <!-- NOTES LIST -->
+
+    <ul id="notes">
+
+    </ul>
+
+    <!-- EMPTY STATE -->
+
+    <template id="emptyTemplate">
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                📝
+            </div>
+
+            <h2>No Notes Yet</h2>
+
+            <p>
+
+                Add your first note above to get started.
+
+            </p>
+
+        </div>
+
+    </template>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <p>
+
+            Nova Notes V8.5 Pro
+
+        </p>
+
+        <small>
+
+            Built with ❤️ for productivity
+
+        </small>
+
+    </footer>
+
+</div>
+
+<!-- SCRIPT -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
