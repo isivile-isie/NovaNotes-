@@ -3,371 +3,308 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nova Notes V8.5 Pro</title>
+<title>Nova Notes V8.5 Pro</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css">
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com">
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-  
-<link rel="manifest" href="manifest.json">
+<!-- PWA -->
+<link rel="manifest" href="./manifest.json">
 
 <meta name="theme-color" content="#6366f1">
-  
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<meta name="apple-mobile-web-app-title" content="Nova Notes">
+
+<meta name="application-name" content="Nova Notes">
+
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+
+<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- HERO -->
+<header class="hero">
 
-    <header class="hero">
+<div>
 
-        <div>
+<h1>🚀 Nova Notes</h1>
 
-            <h1>🚀 Nova Notes</h1>
+<p id="greeting">
+Welcome back!
+</p>
 
-            <p id="greeting">
-                Welcome back!
-            </p>
+</div>
 
-        </div>
+<div class="hero-actions">
 
-        <div class="hero-actions">
+<button id="themeBtn" onclick="toggleDarkMode()">
+🌙 Theme
+</button>
 
-            <button
-                id="themeBtn"
-                onclick="toggleDarkMode()">
+</div>
 
-                🌙 Theme
+</header>
 
-            </button>
+<section class="stats">
 
-        </div>
+<div class="card">
+<h3 id="totalTasks">0</h3>
+<p>Total Tasks</p>
+</div>
 
-    </header>
+<div class="card">
+<h3 id="completedTasks">0</h3>
+<p>Completed</p>
+</div>
 
-    <!-- DASHBOARD -->
+<div class="card">
+<h3 id="favoriteTasks">0</h3>
+<p>Favorites</p>
+</div>
 
-    <section class="stats">
+<div class="card">
+<h3 id="pendingTasks">0</h3>
+<p>Pending</p>
+</div>
 
-        <div class="card">
+<div class="card">
+<h3 id="streak">0🔥</h3>
+<p>Streak</p>
+</div>
 
-            <h3 id="totalTasks">0</h3>
+<div class="card">
+<h3 id="dueToday">0</h3>
+<p>Due Today</p>
+</div>
 
-            <p>Total Tasks</p>
+</section>
 
-        </div>
+<section class="progress-section">
 
-        <div class="card">
+<div class="progress-header">
 
-            <h3 id="completedTasks">0</h3>
+<span>Progress</span>
 
-            <p>Completed</p>
+<span id="progressText">
+0% Complete
+</span>
 
-        </div>
+</div>
 
-        <div class="card">
+<div id="progressContainer">
+<div id="progressBar"></div>
+</div>
 
-            <h3 id="favoriteTasks">0</h3>
+</section>
+<!-- SEARCH -->
 
-            <p>Favorites</p>
+<section class="search-area">
 
-        </div>
+<input
+id="searchInput"
+type="text"
+placeholder="🔍 Search notes...">
 
-        <div class="card">
+</section>
 
-            <h3 id="pendingTasks">0</h3>
+<!-- FILTERS -->
 
-            <p>Pending</p>
+<section class="filters">
 
-        </div>
+<select id="filterCategory">
 
-        <div class="card">
+<option value="all">All Notes</option>
+<option value="pending">Pending</option>
+<option value="completed">Completed</option>
+<option value="favorites">Favorites</option>
+<option value="high">High Priority</option>
+<option value="medium">Medium Priority</option>
+<option value="low">Low Priority</option>
 
-            <h3 id="streak">0🔥</h3>
+</select>
 
-            <p>Streak</p>
+<select id="sortBy">
 
-        </div>
+<option value="newest">Newest</option>
+<option value="date">Due Date</option>
+<option value="priority">Priority</option>
+<option value="favorite">Favorites</option>
+<option value="completed">Completed</option>
 
-        <div class="card">
+</select>
 
-            <h3 id="dueToday">0</h3>
+</section>
 
-            <p>Due Today</p>
+<!-- ADD NOTE -->
 
-        </div>
+<section class="add-note">
 
-    </section>
+<input
+id="noteInput"
+type="text"
+placeholder="What needs to be done?">
 
-    <!-- PROGRESS -->
+<select id="priority">
 
-    <section class="progress-section">
+<option>🟢 Low</option>
+<option selected>🟡 Medium</option>
+<option>🔴 High</option>
 
-        <div class="progress-header">
+</select>
 
-            <span>Progress</span>
+<select id="category">
 
-            <span id="progressText">
+<option>Personal</option>
+<option>Work</option>
+<option>School</option>
+<option>Shopping</option>
+<option>Finance</option>
+<option>Health</option>
 
-                0% Complete
+</select>
 
-            </span>
+<input
+id="dueDate"
+type="date">
 
-        </div>
+<button id="addBtn">
+➕ Add Note
+</button>
 
-        <div id="progressContainer">
+</section>
 
-            <div id="progressBar"></div>
+<!-- QUICK ACTIONS -->
 
-        </div>
+<section class="quick-actions">
 
-    </section>
+<button onclick="toggleDarkMode()">
+🌙 Theme
+</button>
 
-    <!-- SEARCH -->
+<button onclick="exportNotes()">
+📤 Export
+</button>
 
-    <section class="search-area">
+<button onclick="document.getElementById('importFile').click()">
+📥 Import
+</button>
 
-        <input
+<button onclick="deleteAllNotes()">
+🗑 Delete All
+</button>
 
-            id="searchInput"
+</section>
 
-            type="text"
+<!-- IMPORT -->
 
-            placeholder="🔍 Search notes...">
+<input
+type="file"
+id="importFile"
+accept=".json"
+hidden
+onchange="importNotes(event)">
 
-    </section>
+<!-- NOTIFICATIONS -->
 
-    <!-- FILTERS -->
+<section id="notifications">
 
-    <section class="filters">
+<div class="notice">
+🎉 Welcome to Nova Notes!
+</div>
 
-        <select id="filterCategory">
+</section>
 
-            <option value="all">All Notes</option>
+<!-- NOTES HEADER -->
 
-            <option value="pending">Pending</option>
+<section class="notes-header">
 
-            <option value="completed">Completed</option>
+<h2>Your Notes</h2>
 
-            <option value="favorites">Favorites</option>
+<span id="counter">
+0 Notes
+</span>
 
-            <option value="high">High Priority</option>
+</section>
+<!-- NOTES LIST -->
 
-            <option value="medium">Medium Priority</option>
+<ul id="notes">
 
-            <option value="low">Low Priority</option>
+</ul>
 
-        </select>
+<!-- EMPTY STATE -->
 
-        <select id="sortBy">
+<template id="emptyTemplate">
 
-            <option value="newest">Newest</option>
+<div class="empty-state">
 
-            <option value="date">Due Date</option>
+<div class="empty-icon">
+📝
+</div>
 
-            <option value="priority">Priority</option>
+<h2>No Notes Yet</h2>
 
-            <option value="favorite">Favorites</option>
+<p>
+Add your first note above to get started.
+</p>
 
-            <option value="completed">Completed</option>
+</div>
 
-        </select>
+</template>
 
-    </section>
+<!-- FOOTER -->
 
-    <!-- ADD NOTE -->
+<footer class="footer">
 
-    <section class="add-note">
+<p>
+Nova Notes V8.5 Pro
+</p>
 
-        <input
+<small>
+Built with ❤️ for productivity
+</small>
 
-            id="noteInput"
-
-            type="text"
-
-            placeholder="What needs to be done?">
-
-        <select id="priority">
-
-            <option>🟢 Low</option>
-
-            <option selected>🟡 Medium</option>
-
-            <option>🔴 High</option>
-
-        </select>
-
-        <select id="category">
-
-            <option>Personal</option>
-
-            <option>Work</option>
-
-            <option>School</option>
-
-            <option>Shopping</option>
-
-            <option>Finance</option>
-
-            <option>Health</option>
-
-        </select>
-
-        <input
-
-            id="dueDate"
-
-            type="date">
-
-        <button
-            id="addBtn">
-
-            ➕ Add Note
-
-        </button>
-
-    </section>
-        <!-- QUICK ACTIONS -->
-
-    <section class="quick-actions">
-
-        <button onclick="toggleDarkMode()">
-            🌙 Theme
-        </button>
-
-        <button onclick="exportNotes()">
-            📤 Export
-        </button>
-
-        <button onclick="document.getElementById('importFile').click()">
-            📥 Import
-        </button>
-
-        <button onclick="deleteAllNotes()">
-            🗑 Delete All
-        </button>
-
-    </section>
-
-    <!-- HIDDEN IMPORT -->
-
-    <input
-        type="file"
-        id="importFile"
-        accept=".json"
-        hidden
-        onchange="importNotes(event)">
-
-    <!-- NOTIFICATIONS -->
-
-    <section id="notifications">
-
-        <div class="notice">
-
-            🎉 Welcome to Nova Notes!
-
-        </div>
-
-    </section>
-
-    <!-- NOTES COUNTER -->
-
-    <section class="notes-header">
-
-        <h2>Your Notes</h2>
-
-        <span id="counter">
-
-            0 Notes
-
-        </span>
-
-    </section>
-
-    <!-- NOTES LIST -->
-
-    <ul id="notes">
-
-    </ul>
-
-    <!-- EMPTY STATE -->
-
-    <template id="emptyTemplate">
-
-        <div class="empty-state">
-
-            <div class="empty-icon">
-                📝
-            </div>
-
-            <h2>No Notes Yet</h2>
-
-            <p>
-
-                Add your first note above to get started.
-
-            </p>
-
-        </div>
-
-    </template>
-
-    <!-- FOOTER -->
-
-    <footer class="footer">
-
-        <p>
-
-            Nova Notes V8.5 Pro
-
-        </p>
-
-        <small>
-
-            Built with ❤️ for productivity
-
-        </small>
-
-    </footer>
+</footer>
 
 </div>
 
 <!-- SCRIPT -->
 
 <script src="script.js"></script>
+
 <script>
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(registration => {
-        console.log("Service Worker Registered", registration);
-      })
-      .catch(error => {
-        console.log("Service Worker Registration Failed:", error);
-      });
-  });
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(registration => {
+                console.log("Service Worker Registered", registration);
+            })
+            .catch(error => {
+                console.log("Service Worker Registration Failed:", error);
+            });
+    });
 }
-                    </script>
+</script>
 </body>
     </html>
